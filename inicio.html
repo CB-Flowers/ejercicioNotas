@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Promedio</title>
+</head>
+<body>
+    <h1>Calculadora de Promedio</h1>
+    <form id="formulario">
+        <label for="nombre">Nombre del alumno: </label>
+        <input type="text" maxlength="50" id="nombre" required ><br><br>
+
+        <label for="materia">Materia: </label>
+        <input type="text" maxlength="50" id="materia" required><br><br>
+
+        <label for="nota1">Nota 1 (0-10): </label>
+        <input type="number" id="nota1" min="0" max="10" required oninput="validarNota(this)"><br><br>
+
+        <label for="nota2">Nota 2 (0-10): </label>
+        <input type="number" id="nota2" min="0" max="10" required oninput="validarNota(this)"><br><br>
+
+        <label for="nota3">Nota 3 (0-10): </label>
+        <input type="number" id="nota3" min="0" max="10" required oninput="validarNota(this)"><br><br>
+
+        <button type="button" onclick="calcularPromedio()">Calcular Promedio</button>
+    </form>
+
+	<br>
+    <div id="resultado"></div>
+
+    <script>
+	
+		function validarNota(input) {
+            var valor = parseFloat(input.value);
+            if (isNaN(valor) || valor < 0 || valor > 10) {
+                input.value = '';
+				alert('Nota incorrecta, ingrese nuevamente...');
+            }
+        }
+        function calcularPromedio() {
+            var nombre = document.getElementById("nombre").value;
+            var materia = document.getElementById("materia").value;
+            var nota1 = parseFloat(document.getElementById("nota1").value);
+            var nota2 = parseFloat(document.getElementById("nota2").value);
+            var nota3 = parseFloat(document.getElementById("nota3").value);
+
+            if (isNaN(nota1) || isNaN(nota2) || isNaN(nota3)) {
+                alert("Por favor, ingrese notas para realizar el promedio.");
+                return;
+            }
+
+            if (nota1 < 0 || nota1 > 10 || nota2 < 0 || nota2 > 10 || nota3 < 0 || nota3 > 10) {
+                alert("Las notas deben estar en el rango de 0 a 10.");
+                return;
+            }
+
+            var promedio = (nota1 + nota2 + nota3) / 3;
+
+            var resultado = document.getElementById("resultado");
+
+            if (promedio >= 7) {
+                resultado.innerHTML = nombre + ", ¡Felicidades! Has aprobado en " + materia + " con un promedio de " + promedio.toFixed(2);
+            } else {
+                resultado.innerHTML = nombre + ", Gracias por tu esfuerzo. Nos vemos pronto en clase. El promedio obtenido en " + materia + " es " + promedio.toFixed(2);
+            }
+        }
+    </script>
+</body>
+</html>
